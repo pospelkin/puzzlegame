@@ -5,8 +5,8 @@ using UnityEngine;
 public class NumberBox : MonoBehaviour { 
 
     public int index = 0;
-    int x = 0;
-    int y = 0;
+    public int x = 0;
+    public int y = 0;
 
     public void Init(int i, int j, int index, Sprite sprite)
     {

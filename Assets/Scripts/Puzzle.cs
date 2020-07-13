@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
+
 
 public class Puzzle : MonoBehaviour
 {
@@ -31,6 +29,9 @@ public class Puzzle : MonoBehaviour
                 //box.Init(x, y, n + 1, sprites[n]);
                 //n++;
             }
+
+        System.Random rnd = new System.Random();
+        Shuffle(rnd, grid);
     }
 
     public const int kMaxX = 4;
@@ -44,10 +45,36 @@ public class Puzzle : MonoBehaviour
         box.transform.position = GetIconCenterByCell(pos);
         int index = pos.x + kMaxX * pos.y;
         box.Init(pos.x, pos.y, index, sprites[index]);
-
-       
+        
         return box;
     }
+
+
+    public void Shuffle(System.Random random, NumberBox[,] array)
+    {
+        int lengthRow = array.GetLength(1);
+
+        for (int i = array.Length - 1; i > 0; i--)
+        {
+            int i0 = i / lengthRow;
+            int i1 = i % lengthRow;
+
+            int j = random.Next(i + 1);
+            int j0 = j / lengthRow;
+            int j1 = j % lengthRow;
+
+            NumberBox temp = array[i0, i1];
+            array[i0, i1] = array[j0, j1];
+            array[j0, j1] = temp;
+
+            temp.UpdatePos(j0, j1);
+            temp.transform.position = GetIconCenterByCell(new CCell(j0,j1));
+
+            array[i0, i1].UpdatePos(i0, i1);
+            array[i0, i1].transform.position = GetIconCenterByCell(new CCell(i0, i1));
+        }
+    }
+
     public Vector3 GetIconCenterByCell(CCell cell)
     {
         return new Vector3(
