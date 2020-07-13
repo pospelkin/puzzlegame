@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2905394889975195427}
   - component: {fileID: 9205729252345477400}
   - component: {fileID: 1790598994632547723}
-  - component: {fileID: 1084017748633875858}
+  - component: {fileID: -3287439796235398081}
   m_Layer: 0
   m_Name: NumberBox
   m_TagString: Untagged
@@ -108,7 +108,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.64, y: 0.64}
   m_EdgeRadius: 0
---- !u!114 &1084017748633875858
+--- !u!114 &-3287439796235398081
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

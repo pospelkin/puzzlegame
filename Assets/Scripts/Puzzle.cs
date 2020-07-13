@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 
@@ -19,8 +19,10 @@ public class Puzzle : MonoBehaviour
         grid = new NumberBox[4, 4];
         //int n = 0;
 
-        for (int y = 3; y >= 0; y--)
-            for (int x = 0; x < 4; x++)
+        
+        for (int x = 0; x < 4; x++)
+        {     
+            for (int y = 0; y < 4; y++)
             {
                 //NumberBox box = Instantiate(boxPrefab, new Vector2(x, y), Quaternion.identity);
                 
@@ -29,7 +31,6 @@ public class Puzzle : MonoBehaviour
                 //box.Init(x, y, n + 1, sprites[n]);
                 //n++;
             }
-
         System.Random rnd = new System.Random();
         Shuffle(rnd, grid);
     }
@@ -43,7 +44,7 @@ public class Puzzle : MonoBehaviour
         box.transform.SetParent(this.transform);
         box.transform.localScale = Vector3.one;
         box.transform.position = GetIconCenterByCell(pos);
-        int index = pos.x + kMaxX * pos.y;
+        int index = pos.y + kMaxY * pos.x;
         box.Init(pos.x, pos.y, index, sprites[index]);
         
         return box;
@@ -79,7 +80,7 @@ public class Puzzle : MonoBehaviour
     {
         return new Vector3(
             startPosX + cell.y * outX,
-            startPosY + cell.x * outY,
+            startPosY - cell.x * outY,
             this.transform.position.z
         );
     }

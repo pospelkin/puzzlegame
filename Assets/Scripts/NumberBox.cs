@@ -12,7 +12,7 @@ public class NumberBox : MonoBehaviour {
     {
         this.index = index;
         this.GetComponent<SpriteRenderer>().sprite = sprite;
-        UpdatePos(i, j);
+        //UpdatePos(i, j);
 
     }
     public void UpdatePos(int i, int j)
