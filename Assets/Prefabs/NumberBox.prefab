@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 9205729252345477400}
   - component: {fileID: 1790598994632547723}
   - component: {fileID: -3287439796235398081}
+  - component: {fileID: 2203159964929451921}
   m_Layer: 0
   m_Name: NumberBox
-  m_TagString: Untagged
+  m_TagString: numbox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95,7 +96,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.0045651197, y: -0.0045651197}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -106,7 +107,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.64, y: 0.64}
+  m_Size: {x: 1.1786847, y: 1.1786846}
   m_EdgeRadius: 0
 --- !u!114 &-3287439796235398081
 MonoBehaviour:
@@ -121,3 +122,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 0
+  x: 0
+  y: 0
+  mIsAnimationRunning: 0
+  mStartPos: {x: 0, y: 0, z: 0}
+  mEndPos: {x: 0, y: 0, z: 0}
+--- !u!114 &2203159964929451921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3171599044596533323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e051ded074d09a49bd234b88e98ef00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
