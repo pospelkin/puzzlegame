@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,6 +28,10 @@ public class HighscoreTable : MonoBehaviour
     public void TransformTable()
     {
         string jsonString = PlayerPrefs.GetString("highscoreTable");
+
+        if (String.IsNullOrEmpty(jsonString))
+            return;
+
         GameBehavior.Highscores highscores = JsonUtility.FromJson<GameBehavior.Highscores>(jsonString);
 
         for (int i = 0; i < highscores.highscoreEntryList.Count; i++)
