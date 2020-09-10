@@ -16,6 +16,7 @@ public class Puzzle : MonoBehaviour
     public NumberBox StartMovingAnimation;
     public static bool win = false;
     public GameBehavior mGameOver = null;
+    //public GameObject Canvas;
 
 
 
@@ -120,12 +121,16 @@ public class Puzzle : MonoBehaviour
     {
 
         NumberBox box = Instantiate(boxPrefab);
-        box.transform.SetParent(this.transform);
+        //box.transform.SetParent(this.transform);
         box.transform.localScale = Vector3.one;
+
+        //box.transform.SetParent(Canvas.transform, true);
         box.transform.position = GetIconCenterByCell(pos);
         int index = pos.y + kMaxY * pos.x;
         box.Init(pos.x, pos.y, index + 1, sprites[index], ClickToSwap, GameFinish);
-
+        box.transform.SetParent(this.transform);
+        //box.transform.SetParent(Canvas.transform, true);
+        //box.transform.SetParent(GameObject.FindGameObjectWithTag("canvasa").transform, true);
         return box;
     }
 

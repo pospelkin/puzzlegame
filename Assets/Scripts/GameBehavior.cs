@@ -66,6 +66,14 @@ public class GameBehavior : MonoBehaviour
 
     public void BackToMenu()
     {
+        GameObject[] boxes = GameObject.FindGameObjectsWithTag("numbox");
+        foreach (GameObject box in boxes)
+            GameObject.Destroy(box);
+
+        GameObject[] tableList = GameObject.FindGameObjectsWithTag("tablelist");
+        foreach (GameObject tL in tableList)
+            GameObject.Destroy(tL);
+
         transformTable.TransformTable();
         SetGameState(GameState.menu);
     }

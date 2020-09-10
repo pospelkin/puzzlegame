@@ -29,70 +29,26 @@ public class NumberBox : MonoBehaviour  {
 
     private bool noCheckMouseUp = false;
 
-    private const float deltaMove = 20;
+    private const float deltaMove = 0.46f;
 
+   
     public void Init(int i, int j, int index, Sprite sprite, Action<int, int> swapFunc, Action finish)
     {
+        //transform.SetParent(GameObject.FindGameObjectWithTag("canvasa").transform, true);
         this.index = index;
         this.GetComponent<SpriteRenderer>().sprite = sprite;
         UpdatePos(x, y);
+      
+
         this.swapFunc = swapFunc;
         this.finish = finish;
-        //Debug.Log("Init");
     }
     public void UpdatePos(int x1, int y1)
     {
         x = x1;
         y = y1;
-        //Debug.Log("UpdatePos");
     }
-   /*public void OnMouseDown()
-    {
-       if (Input.GetMouseButtonDown(0) && swapFunc != null)
-        {
-            Vector3 mousePos;
-            mousePos = Input.mousePosition;
-            mousePos = Camera.main.ScreenToWorldPoint(mousePos);
-
-            startPosX = mousePos.x - this.transform.localPosition.x;
-            startPosY = mousePos.y - this.transform.localPosition.y;
-                        
-            Vector3 posPos = new Vector3(this.transform.localPosition.x, this.transform.localPosition.y, 0);
-            oldPosX = posPos.x;
-            oldPosY = posPos.y;
-
-            isBeingHeld = true;
-            noCheckMouseUp = false;
-
-            //swapFunc(x, y);
-        }
-    }
-      
-    private void OnMouseUp()
-    {
-        isBeingHeld = false;
-        if (noCheckMouseUp == false)
-        { 
-
-            if (this.gameObject.transform.localPosition.x > oldPosX - 0.46)
-            {
-                this.gameObject.transform.localPosition = new Vector3(oldPosX, oldPosY, 0);
-            }
-            if (this.gameObject.transform.localPosition.x < oldPosX + 0.46)
-            {
-                this.gameObject.transform.localPosition = new Vector3(oldPosX, oldPosY, 0);
-            }
-            if (this.gameObject.transform.localPosition.y > oldPosY + 0.46)
-            {
-                this.gameObject.transform.localPosition = new Vector3(oldPosX, oldPosY, 0);
-            }
-            if (this.gameObject.transform.localPosition.y < oldPosY + 0.46)
-            {
-                this.gameObject.transform.localPosition = new Vector3(oldPosX, oldPosY, 0);
-            }
-        }
-    }*/
-
+   
     void Update()
     {
         if (Input.touchCount > 0)
@@ -101,7 +57,7 @@ public class NumberBox : MonoBehaviour  {
 
             Vector3 touchPos;
             touchPos = touch.position;
-            //touchPos = Camera.main.ScreenToWorldPoint(touchPos);
+            touchPos = Camera.main.ScreenToWorldPoint(touchPos);
 
             switch (touch.phase)
             {
@@ -109,8 +65,8 @@ public class NumberBox : MonoBehaviour  {
 
                     if (GetComponent<Collider2D>() == Physics2D.OverlapPoint(touchPos) && index != 16)
                     {
-                        startPosX = touchPos.x - this.transform.position.x;
-                        startPosY = touchPos.y - this.transform.position.y;
+                        startPosX = this.transform.position.x;
+                        startPosY = this.transform.position.y;
 
                         Vector3 posPos = new Vector3(this.transform.position.x, this.transform.position.y, 0);
                         oldPosX = posPos.x;
@@ -118,7 +74,6 @@ public class NumberBox : MonoBehaviour  {
 
                         isBeingHeld = true;
                         noCheckMouseUp = false;
-                        Debug.Log("Began");
                     }
                     break;
                 
@@ -131,19 +86,15 @@ public class NumberBox : MonoBehaviour  {
                             Vector2 starttouchPos = new Vector2(startPosX, startPosY);
 
                             Vector2 newtouchPos;
-                            newtouchPos = touch.position;// - starttouchPos;
+                            newtouchPos = touch.position;
                             newtouchPos = Camera.main.ScreenToWorldPoint(newtouchPos);
 
                             Vector3 direction = newtouchPos - starttouchPos;
                             direction.Normalize();
-                            Vector3 check = direction;// * 10 - this.transform.localPosition;
-                            Debug.Log("Moved00");
-                            Debug.Log(newtouchPos);
-                            Debug.Log(starttouchPos);
-                            Debug.Log("X:" + x + " Y:" + y + " check:" + check);
-                            if (Puzzle.instance.GetDx(x, y) == -1 && (check.x) > 0)
+                            Vector3 check = direction;
+                           
+                            if (Puzzle.instance.GetDx(x, y) == -1 && (check.x) < 0)
                             {
-                                Debug.Log("Moved1");
                                 this.gameObject.transform.position = new Vector3(newtouchPos.x, transform.position.y, 0);
 
                                 float deltaX = Math.Abs(this.gameObject.transform.position.x - oldPosX);
@@ -155,10 +106,9 @@ public class NumberBox : MonoBehaviour  {
                                 }
                             }
 
-                            if (Puzzle.instance.GetDx(x, y) == 1 && (check.x) < 0)
+                            if (Puzzle.instance.GetDx(x, y) == 1 && (check.x) > 0)
                             {
-                                Debug.Log("Moved2");
-                                this.gameObject.transform.localPosition = new Vector3(newtouchPos.x, transform.position.y, 0);
+                                this.gameObject.transform.position = new Vector3(newtouchPos.x, transform.position.y, 0);
 
                                 float deltaX = Math.Abs(this.gameObject.transform.position.x - oldPosX);
                                 if (deltaX > deltaMove)
@@ -171,8 +121,8 @@ public class NumberBox : MonoBehaviour  {
 
                             if (Puzzle.instance.GetDy(x, y) == -1 && check.y > 0)
                             {
-                                Debug.Log("Moved3");
                                 this.gameObject.transform.position = new Vector3(transform.position.x, newtouchPos.y, 0);
+
                                 float deltaY = Math.Abs(this.gameObject.transform.position.y - oldPosY);
 
                                 if (deltaY > deltaMove)
@@ -183,10 +133,9 @@ public class NumberBox : MonoBehaviour  {
                                 }
                             }
 
-                            if (Puzzle.instance.GetDy(x, y) == 1 && check.y > 0)
+                            if (Puzzle.instance.GetDy(x, y) == 1 && check.y < 0)
                             {
-                                Debug.Log("Moved4");
-                                this.gameObject.transform.position = new Vector3(transform.position.x, newtouchPos.y, 0);
+                               this.gameObject.transform.position = new Vector3(transform.position.x, newtouchPos.y, 0);
 
                                 float deltaY = Math.Abs(this.gameObject.transform.position.y - oldPosY);
 
@@ -203,29 +152,21 @@ public class NumberBox : MonoBehaviour  {
 
                 case TouchPhase.Ended:
 
-                    
-                    isBeingHeld = false;
-
-                    if (GetComponent<Collider2D>() == Physics2D.OverlapPoint(touchPos) && index != 16)
+                    if (GetComponent<Collider2D>() == Physics2D.OverlapPoint(touchPos) && index != 16 && isBeingHeld == true)
                     {
-                        Debug.Log("Ended00");
                         if (noCheckMouseUp == false)
                         {
                             float deltaX = Math.Abs(this.gameObject.transform.position.x - oldPosX);
                             float deltaY = Math.Abs(this.gameObject.transform.position.y - oldPosY);
 
-                            if (deltaX > deltaMove)
+                            if (deltaX < deltaMove)
                             {
-                                Debug.Log("Ended01");
                                 this.gameObject.transform.position = new Vector3(oldPosX, oldPosY, 0);
                             }
-                            else if (deltaY > deltaMove)
+                            else if (deltaY < deltaMove)
                             {
-                                Debug.Log("Ended02");
                                 this.gameObject.transform.position = new Vector3(oldPosX, oldPosY, 0);
                             }
-                            
-                            Debug.Log("Ended");
                         }
                     }
                     break;
@@ -236,23 +177,23 @@ public class NumberBox : MonoBehaviour  {
         if (mIsAnimationRunning)
         {
             lerp += Time.deltaTime / duration;
-            this.transform.position = Vector3.Lerp(this.gameObject.transform.localPosition, mEndPos, lerp);
-            Debug.Log("mIsAnimationRunning00");
-
+            this.transform.position = Vector3.Lerp(this.transform.position, mEndPos, lerp);
+            
             if (this.transform.position == mEndPos)
             {
                 mIsAnimationRunning = false;
                 lerp = 0.0f;
 
                 finish();
-                Debug.Log("mIsAnimationRunning");
             }
         }
     }
 
     public void StartMovingAnimation(Vector3 startPos, Vector3 endPos)
     {
-        startPos = this.gameObject.transform.localPosition;
+        //Debug.Log("startPos:" + startPos + " endPos:" + endPos);
+
+        startPos = this.transform.position;
         mStartPos = startPos;
         mEndPos = endPos;
         mIsAnimationRunning = true;
